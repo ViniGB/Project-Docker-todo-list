@@ -3,30 +3,24 @@ version: '3'
 services:
   todotests:
     image: todotests
-    build: .
-    command: npm test
     depends_on:
       - "todofront"
       - "todoback"
     environment:
-      - FRONT_HOST=todofrontend
+      - FRONT_HOST=todofront
       - FRONT_PORT=3000
 
   todofront:
     image: todofrontend
-    build: ./todofront
-    command: npm start
     depends_on:
       - "todoback"
     ports:
       - 3000:3000
     environment:
-      - REACT_APP_API_HOST=todobackend
+      - REACT_APP_API_HOST=todoback
       - REACT_APP_API_PORT=3001
 
   todoback:
     image: todobackend
-    build: ./todoback
-    command: npm start
     ports:
       - 3001:3001
